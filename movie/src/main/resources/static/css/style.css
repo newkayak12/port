@@ -1,0 +1,7 @@
+*{
+	border: 1px black solid;
+	box-sizing: border-box;
+}
+.bigfont{
+	font-size: 25px;
+}

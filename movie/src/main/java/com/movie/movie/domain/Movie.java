@@ -3,21 +3,8 @@ package com.movie.movie.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import com.movie.movie.domain.compositeKey.MovieActor;
 import com.movie.movie.domain.enums.Genre;
 
 import lombok.AllArgsConstructor;
@@ -53,12 +40,11 @@ public class Movie {
 
 	@Column(name = "MOVIE_TOTAL_SCORE", nullable = false)
 	private String movieTotalScore;
-	@ManyToMany
+
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "MOIVE_ACTOR", joinColumns =  @JoinColumn(name="MOVIE_ID"), inverseJoinColumns = @JoinColumn(name="ACTOR_ID"))
 	List<Actor> actors = new ArrayList<>();
 
-	@OneToMany(mappedBy = "movie")
-	private List<MovieBoard> movieBoards = new ArrayList<>();
 
 	public void addActors(Actor actor){
 		if(actors.contains(actor)){
@@ -68,11 +54,5 @@ public class Movie {
 		actor.getMovies().add(this);
 	}
 
-	public void addMovieBoard(MovieBoard movieBoard){
-		if(movieBoards.contains(movieBoard)){
-			movieBoards.remove(movieBoard);
-		}
-		movieBoards.add(movieBoard);
-		movieBoard.setMovie(this);
-	}
+
 }

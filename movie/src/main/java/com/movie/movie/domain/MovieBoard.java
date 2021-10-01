@@ -13,6 +13,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -39,5 +42,9 @@ public class MovieBoard {
 	private String movieBoardContent;
 	@Column(name = "MOVIE_BOARD_SCORE", nullable = false)
 	private int movieBoardScore;
+
+	@Column(name = "MOVIE_BOARD_WRITE_DATE", nullable = false)
+	private Date movieBoardWriteDate;
+
 
 }
