@@ -11,11 +11,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 
 @Table(name = "MEMBERS")
 @Entity
@@ -28,7 +30,6 @@ public class Members {
 	private String membersUserId;
 	@Column(name = "MEMBERS_USER_PASSWORD", nullable = false)
 	private String membersUserPassword;
-	@Column(name = "MEMBERS_USER_NICKNAME", nullable = false)
-	private String membersUserNickname;
+
 	
 }

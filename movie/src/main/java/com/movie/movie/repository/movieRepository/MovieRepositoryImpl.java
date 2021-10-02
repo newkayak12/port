@@ -22,7 +22,7 @@ public class MovieRepositoryImpl implements MovieRepository{
 	@Override
 	public List<Movie> selectListByGenre(Genre genre) {
 		JPAQuery query = new JPAQuery(em);
-		 List<Movie> result = query.from(movie).where(movie.genre.eq(genre)).list(movie);
+		 List<Movie> result = query.from(movie).where(movie.genre.eq(genre)).offset(0).limit(8).list(movie);
 		return result;
 	}
 
@@ -37,14 +37,14 @@ public class MovieRepositoryImpl implements MovieRepository{
 		if(order.equals(Order.DESC)){
 			 temp.orderBy(movie.movieTotalScore.desc());
 		}
-		 List<Movie> result = temp.list(movie);
+		 List<Movie> result = temp.offset(0).limit(8).list(movie);
 		return result;
 	}
 
 	@Override
 	public Movie selectOne(Long id) {
 		JPAQuery query = new JPAQuery(em);
-		 Movie result = query.from(movie).join(movie.actors,actor ).where(movie.movieId.eq(id)).singleResult(movie);
+		 Movie result = query.from(movie).leftJoin(movie.actors,actor ).where(movie.movieId.eq(id)).singleResult(movie);
 		return result;
 	}
 	

@@ -16,15 +16,19 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 	@Autowired
     MemberService service;
-	@PostMapping("/api/members/posts")
+	@PostMapping("/api/members/login")
     public Long checkIn(@RequestBody Members member, HttpSession session){
-	    log.info(":;"+member);
 	    Long number = service.selectOne(member);
 	    
 	    if(number > 0){
-		    session.setAttribute("members", member);
+		    session.setAttribute("member", member);
 	    }
 
+	    return number;
+    }
+    	@PostMapping("/api/members/join")
+    public Long signin(@RequestBody Members member){
+	    Long number = service.join(member);
 	    return number;
     }
 }

@@ -12,11 +12,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 
 @Table(name = "MOVIE")
 @Entity
@@ -29,17 +31,17 @@ public class Movie {
 	private String movieTitle;
 	@Column(name = "MOVIE_POSTER", nullable = false)
 	private String moviePoster;
-	@Column(name = "MOVIE_CONTENT", nullable = false)
+
+	@Column(name = "MOVIE_CONTENT", nullable = false, columnDefinition = "text", length = 2000)
 	private String movieContent;
-	@Column(name = "MOVIE_PREVIEW", nullable = false)
-	private String moviePreview;
+
 	
 	@Column(name = "MOIVE_GENRE", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Genre genre;
 
-	@Column(name = "MOVIE_TOTAL_SCORE", nullable = false)
-	private String movieTotalScore;
+	@Column(name = "MOVIE_TOTAL_SCORE", nullable = false, precision = 2  )
+	private double movieTotalScore;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "MOIVE_ACTOR", joinColumns =  @JoinColumn(name="MOVIE_ID"), inverseJoinColumns = @JoinColumn(name="ACTOR_ID"))

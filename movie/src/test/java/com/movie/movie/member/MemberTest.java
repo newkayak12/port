@@ -32,7 +32,7 @@ public class MemberTest {
 
     @Test
     public void join(){
-        Members member = Members.builder().membersUserId("t1").membersUserNickname("t1").membersUserPassword("t1").build();
+        Members member = Members.builder().membersUserId("t1").membersUserPassword("t1").build();
         Long result = repo.join(member);
         Assertions.assertEquals(result, 1L);
     }
