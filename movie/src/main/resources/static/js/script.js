@@ -13,7 +13,11 @@ let members={
 				data:JSON.stringify(data),
 			}).done(function(){
 				alert("로그인 성공")
-				location.assign("/movie/")
+				// location.assign("/movie/")
+				// history.back();
+				var link = document.location.href; 
+				location.assign(link);
+
 			}).fail(function(){
 				alert('로그인 실패')
 			})
@@ -70,7 +74,49 @@ let movie={
 }
 
 let board = {
-	fn_loadBoard : function(){
+	paging : function(pageNo, movieId){
+		location.assign("/movie/movieDetail?movieId="+movieId+"&cPage="+pageNo);
+		// $.ajax({
+		// 	type:"GET",
+		// 	url:"/movie/api/members/"+movieId+"/"+pageNo,
+		// }).done(function(data){
+		// 	console.log(data[0])
+		// 	$("#pageBar").html(data[1]);
+		// 	console.log($("#boardContent-table").html())
+		// 	$("#boardContent-table").html('asdasdasdfasdfasdf');
+		// 	console.log("sss")
+		// 	console.log($("#boardContent-table").html())
+		// 	let thtr = $("<tr>")
+		// 	.append($("<th>").attr("class","text-center").html("작성자"))
+		// 	.append($("<th>").attr("class","text-center").html("내용"))
+		// 	.append($("<th>").attr("class","text-center").html("점수"))
+		// 	.append($("<th>").attr("class","text-center").html("작성일"))
+		// 	$("#boardContent-table").append(thtr);
+		// 	data[0].forEach((v,i)=>{
+				
+		// 		let tdtr = $("<tr>")
+		// 		.append($("<td>").attr("class","text-center").html(v['members']['membersUserId']))
+		// 		.append($("<td>").attr("class","text-center").html(v['movieBoardContent']))
+		// 		.append($("<td>").attr("class","text-center").html(v['movieBoardScore']))
+		// 		.append($("<td>").attr("class","text-center").html(v['movieBoardWriteDate']))
+		// 		$("#boardContent-table").append(thtr);
+
+		// 	})
+
+
+
+		// }).fail(function(){
+
+		// })
+		
+	},
+	delete: function(movieId, membersId, movieBoardId, password){
+
+	},
+	wrtie:function(membersId,  movieId, content, password){
+
+	},
+	modify:function(membersId,  movieId, content, password){
 		
 	}
 }

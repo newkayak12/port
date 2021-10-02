@@ -10,6 +10,7 @@ import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.Projections;
 
 import org.springframework.data.jpa.repository.support.Querydsl;
+import static com.movie.movie.domain.QMembers.members;
 import org.springframework.stereotype.Repository;
 @Repository
 public class MemberRepositoryImpl implements MemberRepository {
@@ -28,6 +29,12 @@ public class MemberRepositoryImpl implements MemberRepository {
 		Members m = member;
 		em.persist(m);
 		return m.getMembersId();
+	}
+
+	@Override
+	public Members selectOneMember(Members member) {
+		JPAQuery query = new JPAQuery(em);
+		return query.from(members).where(members.membersUserId.eq(member.getMembersUserId()), members.membersUserPassword.eq(member.getMembersUserPassword())).singleResult(members);
 	}
 	
 }

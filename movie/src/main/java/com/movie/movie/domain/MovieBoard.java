@@ -37,17 +37,19 @@ public class MovieBoard {
 	@JoinColumn(name = "MEMBER_ID")
 	private Members members;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MOVIE_ID")
 	private Movie movie;
+
+	@Column(name = "MOVIE_BOARD_PASSWORD", nullable = false)
+	private String movieBoardPassword;
 	
 	@Column(name = "MOVIE_BOARD_CONTENT", nullable = false)
 	private String movieBoardContent;
-	@Column(name = "MOVIE_BOARD_SCORE", nullable = false)
-	private int movieBoardScore;
 
 	@Column(name = "MOVIE_BOARD_WRITE_DATE", nullable = false)
 	private Date movieBoardWriteDate;
 
+	
 
 }

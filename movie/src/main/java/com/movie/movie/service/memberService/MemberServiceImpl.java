@@ -22,5 +22,10 @@ public class MemberServiceImpl implements MemberService{
 	public Long join(Members meber) {
 		return repo.join(meber);
 	}
+
+	@Override
+	public Members selectOneMember(Members member) {
+		return repo.selectOneMember(member);
+	}
 	
 }

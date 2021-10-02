@@ -21,7 +21,7 @@ public class MemberController {
 	    Long number = service.selectOne(member);
 	    
 	    if(number > 0){
-		    session.setAttribute("member", member);
+		    session.setAttribute("member", service.selectOneMember(member));
 	    }
 
 	    return number;
