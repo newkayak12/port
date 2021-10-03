@@ -14,19 +14,19 @@
 <body>
 
 	<header class="d-flex justify-content-between position-fixed ">
-		<div class="ml-4 col-2 text-center pt-2 pb-1 bigfont" style="color: rgb(238, 10, 10); font-weight: bolder;">JPA_Movie</div>
+		<div class="ml-4 col-2 text-center pt-2 pb-1 bigfont cursor" style="color: rgb(238, 10, 10); font-weight: bolder;" onclick = "location.assign('/movie/')">JPA_Movie</div>
 		<div class="mr-4 col-3">
 			
 			<div class="d-flex justify-content-end">
 				{{^member}}
-					<button type="button" class="btn btn-primary p-2 m-1" data-bs-toggle="modal" data-bs-target="#login"> 로그인 </button>
+					<button type="button" class="btn btn-primary p-2 m-1 me-5" data-bs-toggle="modal" data-bs-target="#login"> 로그인 </button>
 				{{/member}}
 				{{#member}}
 					<span class="m-2 p-2" style="color: white;">
 						Logged in as : <span id="user" class=p-2 m-1>{{member.membersUserId}}</span>
 					</span>
 					<span class="m-2">
-						<button type="button" class="btn btn-danger" onclick="members.fn_logout()"> 로그아웃 </button>	
+						<button type="button" class="btn btn-danger me-5" onclick="members.fn_logout()"> 로그아웃 </button>	
 					</span>
 				{{/member}}
 			</div>

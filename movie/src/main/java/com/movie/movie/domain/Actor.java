@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,7 +26,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 
-
 @Table(name = "ACTOR")
 @Entity
 public class Actor {
@@ -34,11 +35,15 @@ public class Actor {
 	private Long actorId;
 	@Column(name = "ACTOR_NAME", nullable = false)
 	private String actorName;
+
+	@Column(name = "ACTOR_PICTURE", nullable = true)
+	private String actorPicture;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(name = "ACTOR_BIRTH", nullable = false)
 	private Date actorBirth;
-
+	
+	@JsonIgnore
 	@ManyToMany(mappedBy = "actors")
 	private List<Movie> movies = new ArrayList<>();
 	

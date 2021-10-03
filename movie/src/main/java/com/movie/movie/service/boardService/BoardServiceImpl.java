@@ -21,13 +21,14 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public long updateMovieBoard(Long movieId, Long memberId, String content , String password) {
-        return repo.updateMovieBoard(movieId, memberId, content, password);
+    public long updateMovieBoard(Long movieId, Long memberId, Long movieBoardId,String content , String password) {
+        
+        return repo.updateMovieBoard(movieId, memberId,  movieBoardId, content, password);
     }
 
     @Override
-    public long removeMovieBoard(Long movieId, Long memberId , String password) {
-        return repo.removeMovieBoard(movieId, memberId, password);
+    public long removeMovieBoard(Long movieId, Long memberId , Long movieBoardId,String password) {
+        return repo.removeMovieBoard(movieId, memberId,  movieBoardId, password);
     }
 
     @Override

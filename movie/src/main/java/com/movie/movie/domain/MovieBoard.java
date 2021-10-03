@@ -9,6 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -47,8 +51,15 @@ public class MovieBoard {
 	@Column(name = "MOVIE_BOARD_CONTENT", nullable = false)
 	private String movieBoardContent;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "MOVIE_BOARD_WRITE_DATE", nullable = false)
 	private Date movieBoardWriteDate;
+
+	@Transient
+	private Long membersId;
+	@Transient
+	private Long movieId;
+	
 
 	
 

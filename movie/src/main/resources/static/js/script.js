@@ -110,25 +110,117 @@ let board = {
 		// })
 		
 	},
-	delete: function(movieId, membersId, movieBoardId, password){
-
+	delete: function(){
+		let data ={
+			membersId : $("#deleteMembersId").val(),
+			movieId : $("#deleteMovieId").val(),
+			movieBoardId: $("#deleteMovieBoardId").val(),
+			movieBoardPassword: $("#boardDeletePassword").val(),
+		}
+		$.ajax({
+			type:"DELETE",
+			url:"/movie/api/movieBoard/delete",
+			dataType:"json",
+			contentType:"application/json; charset=utf-8",
+			data:JSON.stringify(data)
+		}).done(function(data){
+			console.log(data)
+			if(data!=0){
+				location.assign("/movie/movieDetail?movieId="+data);
+			} else {
+				alert("삭제에 실패했습니다");
+			}
+		}).fail(function(){
+			alert("삭제에 실패했습니다");
+		})
 	},
-	wrtie:function(membersId,  movieId, content, password){
-
-	},
-	modify:function(membersId,  movieId, content, password){
+	write:function(){
+		let data = {
+			membersId : $("#writeMembersId").val(),
+			movieId : $("#writeMovieId").val(),
+			movieBoardContent: $("#contentWrite").val(),
+			movieBoardPassword: $("#boardWritePassword").val(),
+		}
+		$.ajax({
+			type:"POST",
+			url:"/movie/api/movieBoard/write",
+			data:"json",
+			contentType:"application/json; charset=utf-8",
+			data:JSON.stringify(data)
+		}).done(function(data){
+			console.log(data)
+			if(data!=0){
+				location.assign("/movie/movieDetail?movieId="+data);
+			} else {
+				alert("등록에 실패했습니다");
+			}
+		}).fail(function(data){
+			alert("등록에 실패했습니다");
+		})
 		
+
+	},
+	modify:function(){
+		let data = {
+			membersId : $("#modifyMembersId").val(),
+			movieId : $("#modifyMovieId").val(),
+			movieBoardId: $("#modifyMovieBoardId").val(),
+			movieBoardContent: $("#contentModify").val(),
+			movieBoardPassword: $("#boardModifyPassword").val(),
+		}
+		
+		$.ajax({
+			type:"PUT",
+			url:"/movie/api/movieBoard/modify",
+			dataType:"json",
+			contentType:"application/json; charset=utf-8",
+			data:JSON.stringify(data),
+
+		}).done(function(data){
+			console.log(data)
+			if(data!=0){
+				location.assign("/movie/movieDetail?movieId="+data);
+			} else {
+				alert("수정에 실패했습니다");
+			}
+		}).fail(function(){
+				alert("수정에 실패했습니다.")
+		})
+	},
+	modifyPre:function(membersId,  movieBoardId, movieId){
+		console.log(membersId+":"+  movieId+":"+ movieBoardId)
+		$("#modifyMembersId").val(membersId)
+		$("#modifyMovieId").val(movieId)
+		$("#modifyMovieBoardId").val(movieBoardId)
+		
+	},deletePre:function(membersId,  movieBoardId, movieId){
+		console.log(membersId+":"+  movieId+":"+ movieBoardId)
+		$("#deleteMembersId").val(membersId)
+		$("#deleteMovieId").val(movieId)
+		$("#deleteMovieBoardId").val(movieBoardId)
+	},writePre:function(membersId, movieId){
+		$("#writeMembersId").val(membersId)
+		$("#writeMovieId").val(movieId)
 	}
 }
 
+let actor={
+	showActor:function(actorName, actorPicture, actorBirth){
+		$("#modalActorPicture").attr("src","./img/"+actorPicture)
+		$("#modalActorName").html(actorName)
+		$("#modalActorBirth").html(actorBirth)
+	}
+}
+
+
 $(function(){
-	order("asc");
+	order("desc");
 })
 function order(sort){
 	if(sort=='asc'){
-		$(".sortShow").html("점수 : 오름차순")
+		$(".sortShow").html("점수 : 낮은 순서")
 	} else if(sort =='desc'){
-		$(".sortShow").html("점수 : 내림차순")
+		$(".sortShow").html("점수 : 높은 순서")
 	}
 	$.ajax({
 		type:"GET",

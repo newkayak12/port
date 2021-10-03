@@ -36,7 +36,7 @@ public class MainController {
     public String gotoMovieDetail( String movieId, @RequestParam(defaultValue = "1", name = "cPage") int cPages, Model model){
         Movie movie =movieService.selectOne(Long.parseLong(movieId));
         int cPage = cPages;
-        SearchResults<MovieBoard> board = boardService.selectListMovieBoard(10*(cPage-1)+1, Long.parseLong(movieId));
+        SearchResults<MovieBoard> board = boardService.selectListMovieBoard(10*(cPage-1), Long.parseLong(movieId));
         int numPerPage =10;
         int pageBarSize = 5;
         int pageNo = ((cPage-1)/pageBarSize)*pageBarSize+1;

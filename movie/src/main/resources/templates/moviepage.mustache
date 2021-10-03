@@ -18,7 +18,8 @@
 			<td colspan="2" class="text-center contents50">
 				출연진 : 
 				{{#movie.actors}}
-					<span>{{movie.actors}}</span>
+					<span class="cursor actor me-1 ms-1"   data-bs-toggle="modal" data-bs-target="#actor" onclick="actor.showActor('{{actorName}}','{{actorPicture}}','{{actorBirth}}')">{{actorName}}</span>
+					<span class="me-1 ms-1"> / </span>
 				{{/movie.actors}}
 				{{^movie.actors}}&nbsp;&nbsp; - &nbsp;&nbsp;{{/movie.actors}}
 			</td>
@@ -35,7 +36,7 @@
 	<div style="width: 99vw; border: none; background-color: white; box-sizing: border-box;"class="m-0 p-0 board-root d-flex flex-column justify-content-center align-items-center mt-4">
 		<div class="mt-2 d-flex justify-content-end" style="width: 50vw;">
 			{{#member}}
-				<buttton type="button" class="btn btn-info me-3" data-bs-toggle="modal" data-bs-target="#write">글쓰기</buttton>
+				<buttton type="button" class="btn btn-info me-3" data-bs-toggle="modal" data-bs-target="#write" onclick="board.writePre('{{member.membersId}}','{{movie.movieId}}')">글쓰기</buttton>
 			{{/member}}
 			{{^member}}
 			{{/member}}
@@ -61,8 +62,13 @@
 						<td class="text-center" style="width: 50%;">{{movieBoardContent}}</td>
 						<td class="text-center">{{movieBoardWriteDate}}</td>
 						<td class="text-center">
-							<button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modify">수정</button>
-							<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete">삭제</button>
+							{{#member}}
+							<button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modify" onclick = "board.modifyPre('{{members.membersId}}','{{movieBoardId}}','{{movie.movieId}}')">수정</button>
+							<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete" onclick = "board.deletePre('{{members.membersId}}','{{movieBoardId}}','{{movie.movieId}}')">삭제</button>
+							{{/member}}
+							{{^member}}
+								 -  
+							{{/member}}
 						</td>
 					</tr>
 				{{/board}}
@@ -92,7 +98,9 @@
       
 	    <!-- Modal body -->
 	    <div class="modal-body d-flex flex-column justify-content-center align-items-center">
-	
+			<input type="hidden" name="membersId" id= "deleteMembersId">
+			<input type="hidden" name="movieId" id= "deleteMovieId">
+			<input type="hidden" name="movieBoardId" id= "deleteMovieBoardId">
 		<div class="d-flex justify-content-evenly m-2 p-1 col-7">
 			<span class="mr-3">Password:</span> 
 			<input type="password" name="boardDeletePassword" id="boardDeletePassword">
@@ -101,7 +109,7 @@
       
 	    <!-- Modal footer -->
 	    <div class="modal-footer jus">
-		<button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" onclick="board.modify(membersId,  movieId, movieBoardId, password)" >삭제 완료</button>
+		<button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" onclick="board.delete()" >삭제 완료</button>
 		    <button type="button" class="btn btn-danger m-3" data-bs-dismiss="modal" >닫기</button>
 	    </div>
       
@@ -122,7 +130,9 @@
 	      
 		    <!-- Modal body -->
 		    <div class="modal-body d-flex flex-column justify-content-center align-items-center">
-		
+				<input type="hidden" name="membersId" id= "modifyMembersId">
+				<input type="hidden" name="movieId" id= "modifyMovieId">
+				<input type="hidden" name="movieBoardId" id= "modifyMovieBoardId">
 			<div class="d-flex justify-content-evenly m-2 p-1 col-7">
 				<span class="mr-3">content:</span> 
 				<textarea id="contentModify"></textarea>
@@ -135,7 +145,7 @@
 	      
 		    <!-- Modal footer -->
 		    <div class="modal-footer jus">
-			<button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" onclick="board.modify(membersId,  movieId, content, password)" >수정 완료</button>
+			<button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" onclick="board.modify()" >수정 완료</button>
 			    <button type="button" class="btn btn-danger m-3" data-bs-dismiss="modal" >닫기</button>
 		    </div>
 	      
@@ -156,7 +166,8 @@
       
 	    <!-- Modal body -->
 	    <div class="modal-body d-flex flex-column justify-content-center align-items-center">
-	
+		<input type="hidden" name="membersId" id= "writeMembersId">
+		<input type="hidden" name="movieId" id= "writeMovieId">
 		<div class="d-flex justify-content-evenly m-2 p-1 col-7">
 			<span class="mr-3 pt-4">content:</span> 
 			<textarea id="contentWrite"></textarea>
@@ -169,10 +180,45 @@
       
 	    <!-- Modal footer -->
 	    <div class="modal-footer jus">
-		    <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" onclick="board.write(membersId,  movieId, content, password )" >작성 완료</button>
+		    <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" onclick="board.write()" >작성 완료</button>
 		    <button type="button" class="btn btn-danger m-3" data-bs-dismiss="modal" >닫기</button>
 	    </div>
       
 	  </div>
 	</div>
       </div>
+
+
+
+	        <!-- The Modal -->
+		<div class="modal" id="actor">
+			<div class="modal-dialog modal-dialog-centered">
+			  <div class="modal-content">
+		      
+			    <!-- Modal Header -->
+			    <div class="modal-header">
+			      <h4 class="modal-title">영화 배우 정보</h4>
+			      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+			    </div>
+		      
+			    <!-- Modal body -->
+			    <div class="modal-body d-flex flex-column justify-content-center align-items-center" id="actorMain">
+						<img src="" alt="" id="modalActorPicture" width="50%">
+
+						<div class = "mt-5">
+							<div id="modalActorName" style="font-size: 20px;" class="text-center m-3 p-2"></div>
+							<div id="modalActorBirth" style="font-size: 20px;" class="text-center m-3 p-2"></div>
+
+						</div>
+				
+			    </div>
+		      
+			    <!-- Modal footer -->
+			    <div class="modal-footer jus">
+				    <button type="button" class="btn btn-danger m-3" data-bs-dismiss="modal"  >닫기</button>
+			    </div>
+		      
+			  </div>
+			</div>
+		      </div>
+		

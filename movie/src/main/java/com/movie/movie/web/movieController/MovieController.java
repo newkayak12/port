@@ -25,8 +25,9 @@ public class MovieController {
 	    if(order.equalsIgnoreCase("asc")){
             orderholder=Order.ASC;
         } 
-		
-	    return service.selectListSortedbyScore(orderholder);
+		List<Movie> result = service.selectListSortedbyScore(orderholder);
+        log.error("{}",result);
+	    return result;
     }
     @GetMapping("/api/movie/genre/{genre}")
     public List<Movie> showListGenre(@PathVariable("genre") String genre){
